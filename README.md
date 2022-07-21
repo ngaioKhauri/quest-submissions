@@ -4,70 +4,240 @@
 
 ### Day 1
 
-1. Explain what the Blockchain is in your own words. You can read this to help you, but you don't have to: https://www.investopedia.com/terms/b/blockchain.asp
+**1. Explain what the Blockchain is in your own words. You can read this to help you, but you don't have to: https://www.investopedia.com/terms/b/blockchain.asp******
 
-2. Explain what a Smart Contract is. You can read this to help you, but you don't have to: https://www.ibm.com/topics/smart-contracts
+A public database that is not owned by anyone and that anyone can store stuff inside of it.
 
-3. Explain the difference between a script and a transaction.
+**2. Explain what a Smart Contract is. You can read this to help you, but you don't have to: https://www.ibm.com/topics/smart-contracts**
+
+A program that one can deploy onto the Blockchain and people can interact with.
+
+**3. Explain the difference between a script and a transaction.**
+
+Scripts do not cost money. Scripts can only view data on the blockchain.
+
+Transactions cost money. Transactions can view or change data on the blockchain.
 
 ### Day 2
 
-1. What are the 5 Cadence Programming Language Pillars?
+**1. What are the 5 Cadence Programming Language Pillars?**
 
-2. In your opinion, even without knowing anything about the Blockchain or coding, why could the 5 Pillars be useful (you don't have to answer this for #5)?
+Safety and Security, Clarity, Approachability, Developer Experience, Resource Oriented Programming
+
+**2. In your opinion, even without knowing anything about the Blockchain or coding, why could the 5 Pillars be useful (you don't have to answer this for #5)?**
+
+Safety and Security: Protects me from malicious Cadence programmers.
+
+Clarity: We can verify that a person's smart contract is safe because we can read it easily.
+
+Approachability: If I know other languages, Cadence might be easier for me to learn.
+
+Developer Experience: I can see why my contract is failing and fix it easily.
 
 ## Chapter 2
 
 ### Day 1
 
-1. Deploy a contract to account 0x03 called "JacobTucker". Inside that contract, declare a constant variable named is, and make it have type String. Initialize it to "the best" when your contract gets deployed.
+**1. Deploy a contract to account 0x03 called "JacobTucker". Inside that contract, declare a constant variable named is, and make it have type String. Initialize it to "the best" when your contract gets deployed.**
 
-2. Check that your variable is actually equals "the best" by executing a script to read that variable. Include a screenshot of the output.
+
+
+**2. Check that your variable is actually equals "the best" by executing a script to read that variable. Include a screenshot of the output.**
 
 ### Day 2
 
-1. Explain why we wouldn't call changeGreeting in a script.
+**1. Explain why we wouldn't call changeGreeting in a script.**
 
-2. What does the AuthAccount mean in the prepare phase of the transaction?
+Scripts cannot change data on the blockchain/in a smart contract.
 
-3. What is the difference between the prepare phase and the execute phase in the transaction?
+**2. What does the AuthAccount mean in the prepare phase of the transaction?**
 
-4. This is the hardest quest so far, so if it takes you some time, do not worry! I can help you in the Discord if you have questions.
+AuthAccount is the person signing the transaction. This is the person who pays for the transaction. When you sign a transaction using the AuthAccount, the transaction can access the data in your account.
 
-Add two new things inside your contract:
+**3. What is the difference between the prepare phase and the execute phase in the transaction?**
 
-A variable named myNumber that has type Int (set it to 0 when the contract is deployed)
+Purpose of prepare phase: to access the information/data in your account
 
-A function named updateMyNumber that takes in a new number named newNumber as a parameter that has type Int and updates myNumber to be newNumber
-Add a script that reads myNumber from the contract
+Purpose of execute phase: to call functions to view/change the data on the blockchain
 
-Add a transaction that takes in a parameter named myNewNumber and passes it into the updateMyNumber function. Verify that your number changed by running the script again.
+**4. This is the hardest quest so far, so if it takes you some time, do not worry! I can help you in the Discord if you have questions.**
+
+**- Add two new things inside your contract:**
+
+    **- A variable named myNumber that has type Int (set it to 0 when the contract is deployed)**
+
+    **- A function named updateMyNumber that takes in a new number named newNumber as a parameter that has type Int and updates myNumber to be newNumber**
+```
+pub contract HelloWorld {
+    pub var greeting: String
+    pub var myNumber: Int
+
+    pub fun changeGreeting(newGreeting: String) {
+        self.greeting = newGreeting
+    }
+
+    pub fun updateMyNumber(newNumber: Int) {
+      self.myNumber = newNumber
+    }
+
+    init() {
+        self.greeting = "Hello, World!"
+        self.myNumber = 0
+    }
+}
+```
+
+**- Add a script that reads myNumber from the contract**
+```
+import HelloWorld from 0x01
+
+pub fun main(): Int {
+    return HelloWorld.myNumber
+}
+```
+
+
+**- Add a transaction that takes in a parameter named myNewNumber and passes it into the updateMyNumber function. Verify that your number changed by running the script again.**
+
+```
+import HelloWorld from 0x01
+
+transaction(myNewNumber: Int) {
+
+  prepare(signer: AuthAccount) {}
+
+  execute {
+    HelloWorld.updateMyNumber(newNumber: myNewNumber)
+  }
+}
+```
 
 ### Day 3
 
-1. In a script, initialize an array (that has length == 3) of your favourite people, represented as Strings, and log it.
+**1. In a script, initialize an array (that has length == 3) of your favourite people, represented as Strings, and log it.**
+```
+pub fun main(){
+    var arr: [String] = ["Jacob", "Agatha", "Maori"]
+    log(arr)
+}
+```
 
-2. In a script, initialize a dictionary that maps the Strings Facebook, Instagram, Twitter, YouTube, Reddit, and LinkedIn to a UInt64 that represents the order in which you use them from most to least. For example, YouTube --> 1, Reddit --> 2, etc. If you've never used one before, map it to 0!
+**2. In a script, initialize a dictionary that maps the Strings Facebook, Instagram, Twitter, YouTube, Reddit, and LinkedIn to a UInt64 that represents the order in which you use them from most to least. For example, YouTube --> 1, Reddit --> 2, etc. If you've never used one before, map it to 0!**
+```
+pub fun main(){
+    var dic: {String: Int} = {"Facebook": 0, "Instagram": 0, "Twitter": 0, "YouTube": 0, "Reddit": 0, "LinkedIn": 0}
+    log(dic)
+}
+```
 
-3. Explain what the force unwrap operator ! does, with an example different from the one I showed you (you can just change the type).
 
-4. Using this picture below, explain...
+**3. Explain what the force unwrap operator ! does, with an example different from the one I showed you (you can just change the type).**
+```
+pub fun main(): Int {
+    let thing: {Int: Int} = {3: 1, 5: 2, 2: 3}
+    return thing[6]!
+}
+```
+The force unwrap forces the script to return an Int (i.e. the script may not return null)
 
-* What the error message means
-* Why we're getting this error
-* How to fix it
+**4. Using this picture below, explain...**
+
+* **What the error message means**: The return type must be `String`, but `String?` is being returned
+* **Why we're getting this error** Because the accessing a value in a dictionary always returns that value as an optional type (i.e. `String?` as opposed to `String` here)
+* **How to fix it** One way is to return `thing[0x03]!`. Another way is to change the return type to `String?`
 
 ### Day 4
 
 1. Deploy a new contract that has a Struct of your choosing inside of it (must be different than Profile).
+```
+pub contract NgaioContract {
 
+    pub struct Ngaio {
+        pub let birthday: String
+
+        // You have to pass in 4 arguments when creating this Struct.
+        init(_birthday: String) {
+            self.birthday = _birthday
+        }
+    }
+
+    init() {
+    }
+
+}
+```
 2. Create a dictionary or array that contains the Struct you defined.
+
+```
+pub contract NgaioContract {
+
+    pub var ngaioArmy: [Ngaio]
+
+    pub struct Ngaio {
+        pub let birthday: String
+
+        // You have to pass in 4 arguments when creating this Struct.
+        init(_birthday: String) {
+            self.birthday = _birthday
+        }
+    }
+
+    init() {
+      self.ngaioArmy = []
+    }
+
+}
+```
 
 3. Create a function to add to that array/dictionary.
 
-4. Add a transaction to call that function in step 3.
+```
+pub contract NgaioContract {
 
+    pub var ngaioArmy: [Ngaio]
+
+    pub struct Ngaio {
+        pub let birthday: String
+
+        // You have to pass in 4 arguments when creating this Struct.
+        init(_birthday: String) {
+            self.birthday = _birthday
+        }
+    }
+
+    pub fun cloneNgaio(birthday: String) {
+      self.ngaioArmy.append(Ngaio(_birthday: birthday))
+    }
+
+    init() {
+      self.ngaioArmy = []
+    }
+
+}
+```
+
+4. Add a transaction to call that function in step 3.
+```
+import NgaioContract from 0x01
+
+transaction() {
+
+    prepare(signer: AuthAccount) {}
+
+    execute {
+        NgaioContract.cloneNgaio(birthday: "04/12/1995")
+    }
+}
+```
 5. Add a script to read the Struct you defined.
+```
+import NgaioContract from 0x01
+
+pub fun main(): [NgaioContract.Ngaio] {
+    return NgaioContract.ngaioArmy
+}
+```
+
 
 ## Chapter 3
 
@@ -75,11 +245,19 @@ Add a transaction that takes in a parameter named myNewNumber and passes it into
 
 1. In words, list 3 reasons why structs are different from resources.
 
+Resources cannot be copied. They cannot be lost (or overwritten). They cannot be created whenever you want (can be created only inside smart contracts, not transactions or scripts).
+
 2. Describe a situation where a resource might be better to use than a struct.
+
+If you want to buy an expensive virtual item over Flow, you would want to use a resource because a resource cannot be copied. Using a resource for the expensive virtual item ensures that only one instance of it will exist at a time. This way, after I buy the item, I know that the seller can't just re-sell it to other folks.
 
 3. What is the keyword to make a new resource?
 
+`create`
+
 4. Can a resource be created in a script or transaction (assuming there isn't a public function to create one)?
+
+Nope, only in a smart contract.
 
 5. What is the type of the resource below?
 ```
@@ -87,6 +265,9 @@ pub resource Jacob {
 
 }
 `
+
+The type is `@Jacob`
+
 6. Let's play the "I Spy" game from when we were kids. I Spy 4 things wrong with this code. Please fix them.
 `
 pub contract Test {
@@ -98,9 +279,9 @@ pub contract Test {
         }
     }
 
-    pub fun createJacob(): Jacob { // there is 1 here
-        let myJacob = Jacob() // there are 2 here
-        return myJacob // there is 1 here
+    pub fun createJacob(): @Jacob { // there is 1 here
+        let myJacob <- create Jacob() // there are 2 here
+        return <- myJacob // there is 1 here
     }
 }
 ```
@@ -108,13 +289,90 @@ pub contract Test {
 
 1. Write your own smart contract that contains two state variables: an array of resources, and a dictionary of resources. Add functions to remove and add to each of them. They must be different from the examples above.
 
+```
+pub contract NgaioIsALoser {
+    pub var dict: @{Int: Ngaio}
+    pub var arr: @[Ngaio]
+
+    pub resource Ngaio {
+        pub let id: Int
+        pub let sucks: Bool
+        init(_id: Int, _sucks: Bool) {
+            self.id = _id
+            self.sucks = _sucks
+        }
+    }
+
+    pub fun addDict(ngaio: @Ngaio) {
+        let key = ngaio.id
+        let oldNgaio <- self.dict[key] <- ngaio
+        destroy oldNgaio
+    }
+
+    pub fun removeDict(id: Int): @Ngaio {
+        let ngaio <- self.dict.remove(key: id) ?? panic("Could not find Ngaio")
+        return <- ngaio
+    }
+
+    pub fun addArr(ngaio: @Ngaio) {
+        self.arr.append(<- ngaio)
+    }
+
+    pub fun removeArr(index: Int): @Ngaio {
+        return <- self.arr.remove(at: index)
+    }
+
+    init() {
+      self.dict <- {}
+      self.arr <- []
+    }
+}
+```
+
 ### Day 3
 
 1. Define your own contract that stores a dictionary of resources. Add a function to get a reference to one of the resources in the dictionary.
 
+```
+pub contract NgaioSucks {
+
+    pub var dict: @{Int: Ngaio}
+
+    pub resource Ngaio {
+        pub let id: Int
+        pub let sucks: Bool
+        init(_id: Int, _sucks: Bool) {
+            self.id = _id
+            self.sucks = _sucks
+        }
+    }
+
+    pub fun getReference(id: Int): &Ngaio? {
+        return &self.dict[id] as &Ngaio?
+    }
+
+    init() {
+        self.dict <- {
+            0: <- create Ngaio(_id: 0, _sucks: true), 
+            1: <- create Ngaio(_id: 1, _sucks: true)
+        }
+    }
+}
+```
+
 2. Create a script that reads information from that resource using the reference from the function you defined in part 1.
 
+```
+import NgaioSucks from 0x01
+
+pub fun main(): &NgaioSucks.Ngaio {
+    return NgaioSucks.getReference(id: 0)!
+}
+```
+
 3. Explain, in your own words, why references can be useful in Cadence.
+
+To create NFTs! A resource is a unique item on the Blockchain that cannot be copied/duplicated/faked.
 
 ### Day 4
 
