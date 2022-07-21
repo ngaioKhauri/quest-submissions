@@ -263,7 +263,7 @@ Nope, only in a smart contract.
 pub resource Jacob {
 
 }
-`
+```
 
 The type is `@Jacob`
 
