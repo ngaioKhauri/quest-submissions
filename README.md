@@ -148,7 +148,7 @@ The force unwrap forces the script to return an Int (i.e. the script may not ret
 
 ### Day 4
 
-1. Deploy a new contract that has a Struct of your choosing inside of it (must be different than Profile).
+**1. Deploy a new contract that has a Struct of your choosing inside of it (must be different than Profile).**
 ```
 pub contract NgaioContract {
 
