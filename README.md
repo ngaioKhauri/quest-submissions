@@ -166,7 +166,7 @@ pub contract NgaioContract {
 
 }
 ```
-2. Create a dictionary or array that contains the Struct you defined.
+**2. Create a dictionary or array that contains the Struct you defined.**
 
 ```
 pub contract NgaioContract {
@@ -188,8 +188,7 @@ pub contract NgaioContract {
 
 }
 ```
-
-3. Create a function to add to that array/dictionary.
+**3. Create a function to add to that array/dictionary.**
 
 ```
 pub contract NgaioContract {
@@ -216,7 +215,7 @@ pub contract NgaioContract {
 }
 ```
 
-4. Add a transaction to call that function in step 3.
+**4. Add a transaction to call that function in step 3.**
 ```
 import NgaioContract from 0x01
 
@@ -229,7 +228,7 @@ transaction() {
     }
 }
 ```
-5. Add a script to read the Struct you defined.
+**5. Add a script to read the Struct you defined.**
 ```
 import NgaioContract from 0x01
 
@@ -243,23 +242,23 @@ pub fun main(): [NgaioContract.Ngaio] {
 
 ### Day 1
 
-1. In words, list 3 reasons why structs are different from resources.
+**1. In words, list 3 reasons why structs are different from resources.**
 
 Resources cannot be copied. They cannot be lost (or overwritten). They cannot be created whenever you want (can be created only inside smart contracts, not transactions or scripts).
 
-2. Describe a situation where a resource might be better to use than a struct.
+**2. Describe a situation where a resource might be better to use than a struct.**
 
 If you want to buy an expensive virtual item over Flow, you would want to use a resource because a resource cannot be copied. Using a resource for the expensive virtual item ensures that only one instance of it will exist at a time. This way, after I buy the item, I know that the seller can't just re-sell it to other folks.
 
-3. What is the keyword to make a new resource?
+**3. What is the keyword to make a new resource?**
 
 `create`
 
-4. Can a resource be created in a script or transaction (assuming there isn't a public function to create one)?
+**4. Can a resource be created in a script or transaction (assuming there isn't a public function to create one)?**
 
 Nope, only in a smart contract.
 
-5. What is the type of the resource below?
+**5. What is the type of the resource below?**
 ```
 pub resource Jacob {
 
@@ -268,7 +267,8 @@ pub resource Jacob {
 
 The type is `@Jacob`
 
-6. Let's play the "I Spy" game from when we were kids. I Spy 4 things wrong with this code. Please fix them.
+**6. Let's play the "I Spy" game from when we were kids. I Spy 4 things wrong with this code. Please fix them.**
+
 `
 pub contract Test {
     // Hint: There's nothing wrong here ;)
@@ -287,7 +287,7 @@ pub contract Test {
 ```
 ### Day 2
 
-1. Write your own smart contract that contains two state variables: an array of resources, and a dictionary of resources. Add functions to remove and add to each of them. They must be different from the examples above.
+**1. Write your own smart contract that contains two state variables: an array of resources, and a dictionary of resources. Add functions to remove and add to each of them. They must be different from the examples above.**
 
 ```
 pub contract NgaioIsALoser {
@@ -331,7 +331,7 @@ pub contract NgaioIsALoser {
 
 ### Day 3
 
-1. Define your own contract that stores a dictionary of resources. Add a function to get a reference to one of the resources in the dictionary.
+**1. Define your own contract that stores a dictionary of resources. Add a function to get a reference to one of the resources in the dictionary.**
 
 ```
 pub contract NgaioSucks {
@@ -360,7 +360,7 @@ pub contract NgaioSucks {
 }
 ```
 
-2. Create a script that reads information from that resource using the reference from the function you defined in part 1.
+**2. Create a script that reads information from that resource using the reference from the function you defined in part 1.**
 
 ```
 import NgaioSucks from 0x01
@@ -370,17 +370,17 @@ pub fun main(): &NgaioSucks.Ngaio {
 }
 ```
 
-3. Explain, in your own words, why references can be useful in Cadence.
+**3. Explain, in your own words, why references can be useful in Cadence.**
 
 To create NFTs! A resource is a unique item on the Blockchain that cannot be copied/duplicated/faked.
 
 ### Day 4
 
-1. Explain, in your own words, the 2 things resource interfaces can be used for (we went over both in today's content)
+**1. Explain, in your own words, the 2 things resource interfaces can be used for (we went over both in today's content)**
 
-2. Define your own contract. Make your own resource interface and a resource that implements the interface. Create 2 functions. In the 1st function, show an example of not restricting the type of the resource and accessing its content. In the 2nd function, show an example of restricting the type of the resource and NOT being able to access its content.
+**2. Define your own contract. Make your own resource interface and a resource that implements the interface. Create 2 functions. In the 1st function, show an example of not restricting the type of the resource and accessing its content. In the 2nd function, show an example of restricting the type of the resource and NOT being able to access its content.**
 
-3. How would we fix this code?
+**3. How would we fix this code?**
 ```
 pub contract Stuff {
 
@@ -505,51 +505,51 @@ pub fun main() {
 
 ### Day 1
 
-1. Explain what lives inside of an account.
+**1. Explain what lives inside of an account.**
 
-2. What is the difference between the /storage/, /public/, and /private/ paths?
+**2. What is the difference between the /storage/, /public/, and /private/ paths?**
 
-3. What does .save() do? What does .load() do? What does .borrow() do?
+**3. What does .save() do? What does .load() do? What does .borrow() do?**
 
-4. Explain why we couldn't save something to our account storage inside of a script.
+**4. Explain why we couldn't save something to our account storage inside of a script.**
 
-5. Explain why I couldn't save something to your account.
+**5. Explain why I couldn't save something to your account.**
 
-6. Define a contract that returns a resource that has at least 1 field in it. Then, write 2 transactions:
+**6. Define a contract that returns a resource that has at least 1 field in it. Then, write 2 transactions:**
 
-  - A transaction that first saves the resource to account storage, then loads it out of account storage, logs a field inside the resource, and destroys it.
+  **- A transaction that first saves the resource to account storage, then loads it out of account storage, logs a field inside the resource, and destroys it.**
 
-  - A transaction that first saves the resource to account storage, then borrows a reference to it, and logs a field inside the resource.
+  **- A transaction that first saves the resource to account storage, then borrows a reference to it, and logs a field inside the resource.**
 
 ### Day 2
 
-1. What does .link() do?
+**1. What does .link() do?**
 
-2. In your own words (no code), explain how we can use resource interfaces to only expose certain things to the /public/ path.
+**2. In your own words (no code), explain how we can use resource interfaces to only expose certain things to the /public/ path.**
 
-3. Deploy a contract that contains a resource that implements a resource interface. Then, do the following:
+**3. Deploy a contract that contains a resource that implements a resource interface. Then, do the following:**
 
-  - In a transaction, save the resource to storage and link it to the public with the restrictive interface.
+  **- In a transaction, save the resource to storage and link it to the public with the restrictive interface.**
 
-  - Run a script that tries to access a non-exposed field in the resource interface, and see the error pop up.
+  **- Run a script that tries to access a non-exposed field in the resource interface, and see the error pop up.**
 
-  - Run the script and access something you CAN read from. Return it from the script.
+  **- Run the script and access something you CAN read from. Return it from the script.**
 
 ### Day 3
 
-1. Why did we add a Collection to this contract? List the two main reasons.
+**1. Why did we add a Collection to this contract? List the two main reasons.**
 
-2. What do you have to do if you have resources "nested" inside of another resource? ("Nested resources")
+**2. What do you have to do if you have resources "nested" inside of another resource? ("Nested resources")**
 
-3. Brainstorm some extra things we may want to add to this contract. Think about what might be problematic with this contract and how we could fix it.
+**3. Brainstorm some extra things we may want to add to this contract. Think about what might be problematic with this contract and how we could fix it.**
 
-  - Idea #1: Do we really want everyone to be able to mint an NFT? 🤔.
+  **- Idea #1: Do we really want everyone to be able to mint an NFT? 🤔.**
 
-  - Idea #2: If we want to read information about our NFTs inside our Collection, right now we have to take it out of the Collection to do so. Is this good?
+  **- Idea #2: If we want to read information about our NFTs inside our Collection, right now we have to take it out of the Collection to do so. Is this good?**
 
 ### Day 4
 
-Take our NFT contract so far and add comments to every single resource or function explaining what it's doing in your own words. Something like this:
+**Take our NFT contract so far and add comments to every single resource or function explaining what it's doing in your own words. Something like this:**
 ```
 pub contract CryptoPoops {
   pub var totalSupply: UInt64
@@ -636,13 +636,13 @@ pub contract CryptoPoops {
 
 ### Day 1
 
-Describe what an event is, and why it might be useful to a client.
+**Describe what an event is, and why it might be useful to a client.**
 
-Deploy a contract with an event in it, and emit the event somewhere else in the contract indicating that it happened.
+**Deploy a contract with an event in it, and emit the event somewhere else in the contract indicating that it happened.**
 
-Using the contract in step 2), add some pre conditions and post conditions to your contract to get used to writing them out.
+**Using the contract in step 2), add some pre conditions and post conditions to your contract to get used to writing them out.**
 
-For each of the functions below (numberOne, numberTwo, numberThree), follow the instructions.
+**For each of the functions below (numberOne, numberTwo, numberThree), follow the instructions.**
 ```
 pub contract Test {
 
@@ -694,11 +694,11 @@ pub contract Test {
 
 ### Day 2
 
-1. Explain why standards can be beneficial to the Flow ecosystem.
+**1. Explain why standards can be beneficial to the Flow ecosystem.**
 
-2. What is YOUR favourite food?
+**2. What is YOUR favourite food?**
 
-3. Please fix this code (Hint: There are two things wrong):
+**3. Please fix this code (Hint: There are two things wrong):**
 
 The contract interface:
 ```
@@ -751,11 +751,11 @@ pub contract Test {
 
 ### Day 3
 
-What does "force casting" with as! do? Why is it useful in our Collection?
+**What does "force casting" with as! do? Why is it useful in our Collection?**
 
-What does auth do? When do we use it?
+**What does auth do? When do we use it?**
 
-This last quest will be your most difficult yet. Take this contract:
+**This last quest will be your most difficult yet. Take this contract:**
 ```
 import NonFungibleToken from 0x02
 pub contract CryptoPoops: NonFungibleToken {
@@ -837,7 +837,6 @@ pub contract CryptoPoops: NonFungibleToken {
   }
 }
 ```
-and add a function called borrowAuthNFT just like we did in the section called "The Problem" above. Then, find a way to make it publically accessible to other people so they can read our NFT's metadata. Then, run a script to display the NFTs metadata for a certain id.
+**and add a function called borrowAuthNFT just like we did in the section called "The Problem" above. Then, find a way to make it publically accessible to other people so they can read our NFT's metadata. Then, run a script to display the NFTs metadata for a certain id.**
 
-You will have to write all the transactions to set up the accounts, mint the NFTs, and then the scripts to read the NFT's metadata. We have done most of this in the chapters up to this point, so you can look for help there :)
-
+**You will have to write all the transactions to set up the accounts, mint the NFTs, and then the scripts to read the NFT's metadata. We have done most of this in the chapters up to this point, so you can look for help there :)**
