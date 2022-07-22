@@ -269,7 +269,7 @@ The type is `@Jacob`
 
 **6. Let's play the "I Spy" game from when we were kids. I Spy 4 things wrong with this code. Please fix them.**
 
-`
+```
 pub contract Test {
     // Hint: There's nothing wrong here ;)
     pub resource Jacob {
@@ -378,7 +378,44 @@ To create NFTs! A resource is a unique item on the Blockchain that cannot be cop
 
 **1. Explain, in your own words, the 2 things resource interfaces can be used for (we went over both in today's content)**
 
+A resource interface can be used as a "requirement" that specifies the functions and fields that an interface must have.
+A resource interface can restrict access of a resource's functions and fields from certain people.
+
 **2. Define your own contract. Make your own resource interface and a resource that implements the interface. Create 2 functions. In the 1st function, show an example of not restricting the type of the resource and accessing its content. In the 2nd function, show an example of restricting the type of the resource and NOT being able to access its content.**
+
+```
+pub contract NgaioContract {
+
+    pub resource interface INgaio {
+      pub let sucks: Bool
+    }
+
+    pub resource Ngaio: INgaio {
+      pub let sucks: Bool
+      pub let age: Int
+      init() {
+        self.sucks = false
+        self.age = 0
+      }
+    }
+
+    // can access age field
+    pub fun noInterface() {
+      let me: @Ngaio <- create Ngaio()
+      log(me.age)
+
+      destroy me
+    }
+
+    // cannot access age field bc it is not exposed in INgaio interface
+    pub fun yesInterface() {
+      let me: @Ngaio{INgaio} <- create Ngaio()
+      log(me.age)
+
+      destroy me
+    }
+}
+```
 
 **3. How would we fix this code?**
 ```
@@ -387,6 +424,7 @@ pub contract Stuff {
     pub struct interface ITest {
       pub var greeting: String
       pub var favouriteFruit: String
+      pub fun changeGreeting(newGreeting: String): String
     }
 
     // ERROR:
@@ -394,6 +432,7 @@ pub contract Stuff {
     // to structure interface Stuff.ITest`
     pub struct Test: ITest {
       pub var greeting: String
+      pub var favouriteFruit: String
 
       pub fun changeGreeting(newGreeting: String): String {
         self.greeting = newGreeting
@@ -402,6 +441,7 @@ pub contract Stuff {
 
       init() {
         self.greeting = "Hello!"
+        self.favouriteFruit = "Kiwi"
       }
     }
 
@@ -417,7 +457,19 @@ pub contract Stuff {
 
 For today's quest, you will be looking at a contract and a script. You will be looking at 4 variables (a, b, c, d) and 3 functions (publicFunc, contractFunc, privateFunc) defined in SomeContract. In each AREA (1, 2, 3, and 4), I want you to do the following: for each variable (a, b, c, and d), tell me in which areas they can be read (read scope) and which areas they can be modified (write scope). For each function (publicFunc, contractFunc, and privateFunc), simply tell me where they can be called.
 
-You can use this diagram to help you: 
+1.
+   - Read: a, b, c, d
+   - Write: a, b, c, d
+2.
+   - Read: a, b, c
+   - Write: a
+3.
+   - Read: a, b, c
+   - Write: a
+4.
+   - Read: a, b
+   - Write:
+
 ```
 access(all) contract SomeContract {
     pub var testStruct: SomeStruct
