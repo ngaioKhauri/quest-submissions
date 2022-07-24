@@ -220,15 +220,19 @@ For today's quest, you will be looking at a contract and a script. You will be l
 1.
    - Read: a, b, c, d
    - Write: a, b, c, d
+   - Functions: publicFunc, contractFunc, privateFunc
 2.
    - Read: a, b, c
    - Write: a
+   - Functions: publicFunc, contractFunc
 3.
    - Read: a, b, c
    - Write: a
+   - Functions: publicFunc, contractFunc
 4.
    - Read: a, b
    - Write:
+   - Functions: publicFunc
 
 ```
 access(all) contract SomeContract {
