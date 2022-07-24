@@ -4,19 +4,85 @@
 
 **1. Explain what lives inside of an account.**
 
+1. Contract Code - the code of the contract that you deploy to your account
+2. Account Storage - your stored data
+
 **2. What is the difference between the /storage/, /public/, and /private/ paths?**
+
+/storage/ - only the account owner can access it. all your data is here
+/public/ - everyone can access it
+/private/ - only the account owner and people who the owner gives access to it can access it
 
 **3. What does .save() do? What does .load() do? What does .borrow() do?**
 
+`.save()` saves data to a `/storage/` path
+`.load()` loads data from a `/storage/` path
+`.borrow()` returns a reference to data in a `/storage/` path
+
 **4. Explain why we couldn't save something to our account storage inside of a script.**
+
+A script cannot change data on a blockchain
 
 **5. Explain why I couldn't save something to your account.**
 
+Only I have access to the data in my `/storage/` path
+
 **6. Define a contract that returns a resource that has at least 1 field in it. Then, write 2 transactions:**
+
+```
+access(all) contract HelloWorld {
+
+    access(all) resource Ngaio {
+        access(all) var hatesJava: Bool
+        init() {
+            self.hatesJava = true
+        }
+    }
+
+    // Public function that returns our friendly greeting!
+    access(all) fun makeNgaio(): @Ngaio {
+        return <- create Ngaio()
+    }
+}
+```
 
   **- A transaction that first saves the resource to account storage, then loads it out of account storage, logs a field inside the resource, and destroys it.**
 
+```
+import HelloWorld from 0x01
+
+transaction {
+
+  prepare(acct: AuthAccount) {
+    var ngaio <- HelloWorld.makeNgaio()
+    acct.save(<- ngaio, to: /storage/ngaio_kingdom)
+
+    var loaded <- acct.load<@HelloWorld.Ngaio>(from: /storage/ngaio_kingdom)!
+    log(loaded.hatesJava)
+    destroy loaded
+  }
+
+  execute {}
+}
+```
+
   **- A transaction that first saves the resource to account storage, then borrows a reference to it, and logs a field inside the resource.**
+```
+import HelloWorld from 0x01
+
+transaction {
+
+  prepare(acct: AuthAccount) {
+    var ngaio <- HelloWorld.makeNgaio()
+    acct.save(<- ngaio, to: /storage/ngaio_dungeon)
+
+    var borrowedRef = acct.borrow<&HelloWorld.Ngaio>(from: /storage/ngaio_dungeon)!
+    log(borrowedRef.hatesJava)
+  }
+
+  execute {}
+}
+```
 
 ### Day 2
 
