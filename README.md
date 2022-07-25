@@ -145,18 +145,33 @@ pub fun main(){
 
 
 **3. Explain what the force unwrap operator ! does, with an example different from the one I showed you (you can just change the type).**
+The force unwrap operator is an operator that we use on an expression of type optional to obtain the expression as a non-optional type. If the value of the expression on which we use the force unwrap operator is null, then the program aborts.
+
+For example, take this script:
 ```
-pub fun main(): Int {
+pub fun main() {
     let thing: {Int: Int} = {3: 1, 5: 2, 2: 3}
-    return thing[6]!
+
+    log(thing[3]!)
 }
 ```
-The force unwrap forces the script to return an Int (i.e. the script may not return null)
+`thing[3]` here is an `Int?` type. If we use the force unwrap operator on `thing[3]`, we'll either get a value of type `Int` or the program will abort. Thankfully, `thing[3]!` is equal to 1 because 3 maps to 1 in the `thing` dictionary.
 
-**4. Using this picture below, explain...**
+Now, take this script:
+```
+pub fun main() {
+    let thing: {Int: Int} = {3: 1, 5: 2, 2: 3}
+
+    log(thing[6]!)
+}
+```
+`thing[6]` here is an `Int?` type. If we use the force unwrap operator on `thing[6]`, we'll again either get a value of type `Int` or the program will abort. Unfortunately, the program aborts because 6 does not map to anything in the `thing` dictionary (in other words, `thing[6]` was nil).
+
+
+**4.**
 
 * **What the error message means**: The return type must be `String`, but `String?` is being returned
-* **Why we're getting this error** Because the accessing a value in a dictionary always returns that value as an optional type (i.e. `String?` as opposed to `String` here)
+* **Why we're getting this error** Because accessing a value in a dictionary always returns that value as an optional type (i.e. accessing dictionary here results in `String?` as opposed to `String`)
 * **How to fix it** One way is to return `thing[0x03]!`. Another way is to change the return type to `String?`
 
 ### Day 4
@@ -168,7 +183,6 @@ pub contract NgaioContract {
     pub struct Ngaio {
         pub let birthday: String
 
-        // You have to pass in 4 arguments when creating this Struct.
         init(_birthday: String) {
             self.birthday = _birthday
         }
@@ -189,7 +203,6 @@ pub contract NgaioContract {
     pub struct Ngaio {
         pub let birthday: String
 
-        // You have to pass in 4 arguments when creating this Struct.
         init(_birthday: String) {
             self.birthday = _birthday
         }
@@ -211,7 +224,6 @@ pub contract NgaioContract {
     pub struct Ngaio {
         pub let birthday: String
 
-        // You have to pass in 4 arguments when creating this Struct.
         init(_birthday: String) {
             self.birthday = _birthday
         }
