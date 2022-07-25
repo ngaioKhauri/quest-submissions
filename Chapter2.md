@@ -4,9 +4,19 @@
 
 **1. Deploy a contract to account 0x03 called "JacobTucker". Inside that contract, declare a constant variable named is, and make it have type String. Initialize it to "the best" when your contract gets deployed.**
 
+```
+access(all) contract JacobTucker {
+    access(all) let is: String
 
+    init() {
+        self.is = "the best"
+    }
+}
+```
 
 **2. Check that your variable is actually equals "the best" by executing a script to read that variable. Include a screenshot of the output.**
+
+![output_text](./output.PNG)
 
 ### Day 2
 
@@ -26,9 +36,12 @@ Purpose of execute phase: to call functions to view/change the data on the block
 
 **4. This is the hardest quest so far, so if it takes you some time, do not worry! I can help you in the Discord if you have questions.**
 
-**- Add two new things inside your contract:**
-    **- A variable named myNumber that has type Int (set it to 0 when the contract is deployed)**
-    **- A function named updateMyNumber that takes in a new number named newNumber as a parameter that has type Int and updates myNumber to be newNumber**
+- **Add two new things inside your contract:**
+    - **A variable named myNumber that has type Int (set it to 0 when the contract is deployed)**
+
+    - **A function named updateMyNumber that takes in a new number named newNumber as a parameter that has type Int and updates myNumber to be newNumber**
+
+
 ```
 pub contract HelloWorld {
     pub var greeting: String
