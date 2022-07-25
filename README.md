@@ -120,6 +120,10 @@ transaction(myNewNumber: Int) {
   }
 }
 ```
+Running script before running the transaction:
+![output_text](./2_before_transaction.PNG)
+Running script after running the transaction:
+![output_text](./2_after_transaction.PNG)
 
 ### Day 3
 
