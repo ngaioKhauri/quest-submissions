@@ -2,13 +2,81 @@
 
 ### Day 1
 
-**Describe what an event is, and why it might be useful to a client.**
+**1. Describe what an event is, and why it might be useful to a client.**
 
-**Deploy a contract with an event in it, and emit the event somewhere else in the contract indicating that it happened.**
+An event is when a smart contract tells the outside world that something happened.
 
-**Using the contract in step 2), add some pre conditions and post conditions to your contract to get used to writing them out.**
+It might be useful to a client because a client can determine when something happens and then do something.
 
-**For each of the functions below (numberOne, numberTwo, numberThree), follow the instructions.**
+For example, let's say a client is writing an NFT and wants to celebrate when an NFT with ID 100 is minted.
+The NFT can emit an event every time it mints an NFT (let's say the event contains the ID of the NFT that was just minted).
+The client would be able to determine when an NFT with ID 100 is minted and go celebrate :)
+
+**2. Deploy a contract with an event in it, and emit the event somewhere else in the contract indicating that it happened.**
+
+```
+pub contract Test {
+  pub event NFTDestroyed(id: UInt64)
+
+  pub resource NFT {
+    pub var id: UInt64
+
+    pub fun incrementId(): UInt64 {
+      self.id = self.id + 1
+      return self.id
+    }
+
+    init() {
+      post {
+        self.id != 5     
+      }
+      self.id = self.uuid
+    }
+
+    destroy() {
+      emit NFTDestroyed(id: self.id)
+    }
+  }
+}
+```
+
+**3. Using the contract in step 2), add some pre conditions and post conditions to your contract to get used to writing them out.**
+
+```
+pub contract Test {
+  pub event NFTDestroyed(id: UInt64)
+
+  pub resource NFT {
+    pub var id: UInt64
+
+    pub fun incrementId(): UInt64 {
+      pre {
+        self.id != 3
+      }
+      self.id = self.id + 1
+      return self.id
+    }
+
+    init() {
+      post {
+        self.id != 5     
+      }
+      self.id = self.uuid
+    }
+
+    destroy() {
+      emit NFTDestroyed(id: self.id)
+    }
+  }
+}
+```
+
+**4. For each of the functions below (numberOne, numberTwo, numberThree), follow the instructions.**
+
+`numberOne` logs the name.
+`numberTwo` returns a value.
+`numberThree` does not return the updated number. The value of `self.number` after it's run is 0.
+
 ```
 pub contract Test {
 
@@ -62,7 +130,11 @@ pub contract Test {
 
 **1. Explain why standards can be beneficial to the Flow ecosystem.**
 
+A standard is beneficial to the Flow ecosystem because a client interacting with contracts that meet the standard can interact with the contracts in a single, uniform manner.
+
 **2. What is YOUR favourite food?**
+
+My favorite food is Waakye
 
 **3. Please fix this code (Hint: There are two things wrong):**
 
@@ -88,9 +160,10 @@ pub contract interface ITest {
     pub var favouriteActivity: String
   }
 }
+```
 The implementing contract:
-
-pub contract Test {
+```
+pub contract Test: ITest {
   pub var number: Int
   
   pub fun updateNumber(newNumber: Int) {
@@ -101,7 +174,7 @@ pub contract Test {
     pub var favouriteActivity: String
   }
 
-  pub resource Stuff: IStuff {
+  pub resource Stuff: IStuff, ITest.IStuff {
     pub var favouriteActivity: String
 
     init() {
@@ -119,7 +192,15 @@ pub contract Test {
 
 **What does "force casting" with as! do? Why is it useful in our Collection?**
 
+Force casting changes from one type to another type (for example from the generic `@NonFungibleToken.NFT` type to the more specific `@NFT` type (the CryptoPoops NFT type).
+
+This is useful in our Collection because although the deposit function must take in `@NonFungibleToken.NFT`, the force casting to the CryptoPoops NFT type ensures that we can only deposit CryptoPoops NFTs in our collection.
+
 **What does auth do? When do we use it?**
+
+Prepending auth gives us an "authorized" reference to a resource.
+
+We use it when we want to downcast a reference to a resource to another reference. To do this, the origin reference that we have must be an authorized reference.
 
 **This last quest will be your most difficult yet. Take this contract:**
 ```
