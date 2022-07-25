@@ -145,6 +145,7 @@ pub fun main(){
 
 
 **3. Explain what the force unwrap operator ! does, with an example different from the one I showed you (you can just change the type).**
+
 The force unwrap operator is an operator that we use on an expression of type optional to obtain the expression as a non-optional type. If the value of the expression on which we use the force unwrap operator is null, then the program aborts.
 
 For example, take this script:
