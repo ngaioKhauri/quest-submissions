@@ -16,7 +16,7 @@ access(all) contract JacobTucker {
 
 **2. Check that your variable is actually equals "the best" by executing a script to read that variable. Include a screenshot of the output.**
 
-![output_text](./output.PNG)
+![output_text](./picture.PNG)
 
 ### Day 2
 
