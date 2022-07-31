@@ -38,7 +38,7 @@ Developer Experience: I can see why my contract is failing and fix it easily.
 
 **1. Deploy a contract to account 0x03 called "JacobTucker". Inside that contract, declare a constant variable named is, and make it have type String. Initialize it to "the best" when your contract gets deployed.**
 
-```
+```Cadence
 access(all) contract JacobTucker {
     access(all) let is: String
 
@@ -76,7 +76,7 @@ Purpose of execute phase: to call functions to view/change the data on the block
     - **A function named updateMyNumber that takes in a new number named newNumber as a parameter that has type Int and updates myNumber to be newNumber**
 
 
-```
+```Cadence
 pub contract HelloWorld {
     pub var greeting: String
     pub var myNumber: Int
@@ -97,7 +97,7 @@ pub contract HelloWorld {
 ```
 
 **- Add a script that reads myNumber from the contract**
-```
+```Cadence
 import HelloWorld from 0x01
 
 pub fun main(): Int {
@@ -108,7 +108,7 @@ pub fun main(): Int {
 
 **- Add a transaction that takes in a parameter named myNewNumber and passes it into the updateMyNumber function. Verify that your number changed by running the script again.**
 
-```
+```Cadence
 import HelloWorld from 0x01
 
 transaction(myNewNumber: Int) {
@@ -128,7 +128,7 @@ Running script after running the transaction:
 ### Day 3
 
 **1. In a script, initialize an array (that has length == 3) of your favourite people, represented as Strings, and log it.**
-```
+```Cadence
 pub fun main(){
     var arr: [String] = ["Jacob", "Agatha", "Maori"]
     log(arr)
@@ -136,7 +136,7 @@ pub fun main(){
 ```
 
 **2. In a script, initialize a dictionary that maps the Strings Facebook, Instagram, Twitter, YouTube, Reddit, and LinkedIn to a UInt64 that represents the order in which you use them from most to least. For example, YouTube --> 1, Reddit --> 2, etc. If you've never used one before, map it to 0!**
-```
+```Cadence
 pub fun main(){
     var dic: {String: Int} = {"Facebook": 0, "Instagram": 0, "Twitter": 0, "YouTube": 0, "Reddit": 0, "LinkedIn": 0}
     log(dic)
@@ -149,7 +149,7 @@ pub fun main(){
 The force unwrap operator is an operator that we use on an expression of type optional to obtain the expression as a non-optional type. If the value of the expression on which we use the force unwrap operator is null, then the program aborts.
 
 For example, take this script:
-```
+```Cadence
 pub fun main() {
     let thing: {Int: Int} = {3: 1, 5: 2, 2: 3}
 
@@ -159,7 +159,7 @@ pub fun main() {
 `thing[3]` here is an `Int?` type. If we use the force unwrap operator on `thing[3]`, we'll either get a value of type `Int` or the program will abort. Thankfully, `thing[3]!` is equal to 1 because 3 maps to 1 in the `thing` dictionary.
 
 Now, take this script:
-```
+```Cadence
 pub fun main() {
     let thing: {Int: Int} = {3: 1, 5: 2, 2: 3}
 
@@ -178,7 +178,7 @@ pub fun main() {
 ### Day 4
 
 **1. Deploy a new contract that has a Struct of your choosing inside of it (must be different than Profile).**
-```
+```Cadence
 pub contract NgaioContract {
 
     pub struct Ngaio {
@@ -196,7 +196,7 @@ pub contract NgaioContract {
 ```
 **2. Create a dictionary or array that contains the Struct you defined.**
 
-```
+```Cadence
 pub contract NgaioContract {
 
     pub var ngaioArmy: [Ngaio]
@@ -217,7 +217,7 @@ pub contract NgaioContract {
 ```
 **3. Create a function to add to that array/dictionary.**
 
-```
+```Cadence
 pub contract NgaioContract {
 
     pub var ngaioArmy: [Ngaio]
@@ -242,7 +242,7 @@ pub contract NgaioContract {
 ```
 
 **4. Add a transaction to call that function in step 3.**
-```
+```Cadence
 import NgaioContract from 0x01
 
 transaction() {
@@ -255,7 +255,7 @@ transaction() {
 }
 ```
 **5. Add a script to read the Struct you defined.**
-```
+```Cadence
 import NgaioContract from 0x01
 
 pub fun main(): [NgaioContract.Ngaio] {
@@ -286,7 +286,7 @@ E.g. if you want to buy an expensive virtual item over Flow, you would want to u
 Nope, only in a smart contract.
 
 **5. What is the type of the resource below?**
-```
+```Cadence
 pub resource Jacob {
 
 }
@@ -296,7 +296,7 @@ The type is `@Jacob`
 
 **6. Let's play the "I Spy" game from when we were kids. I Spy 4 things wrong with this code. Please fix them.**
 
-```
+```Cadence
 pub contract Test {
     // Hint: There's nothing wrong here ;)
     pub resource Jacob {
@@ -316,7 +316,7 @@ pub contract Test {
 
 **1. Write your own smart contract that contains two state variables: an array of resources, and a dictionary of resources. Add functions to remove and add to each of them. They must be different from the examples above.**
 
-```
+```Cadence
 pub contract NgaioIsALoser {
     pub var dict: @{Int: Ngaio}
     pub var arr: @[Ngaio]
@@ -360,7 +360,7 @@ pub contract NgaioIsALoser {
 
 **1. Define your own contract that stores a dictionary of resources. Add a function to get a reference to one of the resources in the dictionary.**
 
-```
+```Cadence
 pub contract NgaioSucks {
 
     pub var dict: @{Int: Ngaio}
@@ -389,7 +389,7 @@ pub contract NgaioSucks {
 
 **2. Create a script that reads information from that resource using the reference from the function you defined in part 1.**
 
-```
+```Cadence
 import NgaioSucks from 0x01
 
 pub fun main(): &NgaioSucks.Ngaio {
@@ -410,7 +410,7 @@ A resource interface can restrict access of a resource's functions and fields fr
 
 **2. Define your own contract. Make your own resource interface and a resource that implements the interface. Create 2 functions. In the 1st function, show an example of not restricting the type of the resource and accessing its content. In the 2nd function, show an example of restricting the type of the resource and NOT being able to access its content.**
 
-```
+```Cadence
 pub contract NgaioContract {
 
     pub resource interface INgaio {
@@ -445,7 +445,7 @@ pub contract NgaioContract {
 ```
 
 **3. How would we fix this code?**
-```
+```Cadence
 pub contract Stuff {
 
     pub struct interface ITest {
@@ -501,7 +501,7 @@ pub contract Stuff {
    - Write:
    - Functions: publicFunc
 
-```
+```Cadence
 access(all) contract SomeContract {
     pub var testStruct: SomeStruct
 
@@ -574,7 +574,7 @@ access(all) contract SomeContract {
 }
 ```
 This is a script that imports the contract above:
-```
+```Cadence
 import SomeContract from 0x01
 
 pub fun main() {
@@ -615,7 +615,7 @@ Only I have access to the data in my `/storage/` path
 
 **6. Define a contract that returns a resource that has at least 1 field in it. Then, write 2 transactions:**
 
-```
+```Cadence
 access(all) contract HelloWorld {
 
     access(all) resource Ngaio {
@@ -634,7 +634,7 @@ access(all) contract HelloWorld {
 
   **- A transaction that first saves the resource to account storage, then loads it out of account storage, logs a field inside the resource, and destroys it.**
 
-```
+```Cadence
 import HelloWorld from 0x01
 
 transaction {
@@ -653,7 +653,7 @@ transaction {
 ```
 
   **- A transaction that first saves the resource to account storage, then borrows a reference to it, and logs a field inside the resource.**
-```
+```Cadence
 import HelloWorld from 0x01
 
 transaction {
@@ -687,7 +687,7 @@ Now, the public can only obtain a reference to the resource restricted to the re
 As a result, the public can only view the "certain things" that I, the owner of the resource, exposed in the resource interface.
 
 **3. Deploy a contract that contains a resource that implements a resource interface. Then, do the following:**
-```
+```Cadence
 access(all) contract HelloWorld {
 
     access(all) resource interface NgaioInterface {
@@ -710,7 +710,7 @@ access(all) contract HelloWorld {
 }
 ```
   **- In a transaction, save the resource to storage and link it to the public with the restrictive interface.**
-```
+```Cadence
 import HelloWorld from 0x01
 
 transaction {
@@ -726,7 +726,7 @@ transaction {
 }
 ```
   **- Run a script that tries to access a non-exposed field in the resource interface, and see the error pop up.**
-```
+```Cadence
 import HelloWorld from 0x01
 
 pub fun main(): Bool {
@@ -739,7 +739,7 @@ pub fun main(): Bool {
 }
 ```
   **- Run the script and access something you CAN read from. Return it from the script.**
-```
+```Cadence
 import HelloWorld from 0x01
 
 pub fun main(): Bool {
@@ -775,7 +775,7 @@ If an "outer" resource consists of "nested" resources, the "outer" resource must
 ### Day 4
 
 **Take our NFT contract so far and add comments to every single resource or function explaining what it's doing in your own words**
-```
+```Cadence
 pub contract CryptoPoops {
   pub var totalSupply: UInt64
 
@@ -883,7 +883,7 @@ The client would be able to determine when an NFT with ID 100 is minted and go c
 
 **2. Deploy a contract with an event in it, and emit the event somewhere else in the contract indicating that it happened.**
 
-```
+```Cadence
 pub contract Test {
   pub event NFTDestroyed(id: UInt64)
 
@@ -911,7 +911,7 @@ pub contract Test {
 
 **3. Using the contract in step 2), add some pre conditions and post conditions to your contract to get used to writing them out.**
 
-```
+```Cadence
 pub contract Test {
   pub event NFTDestroyed(id: UInt64)
 
@@ -946,7 +946,7 @@ pub contract Test {
 `numberTwo` returns a value.
 `numberThree` does not return the updated number. The value of `self.number` after it's run is 0.
 
-```
+```Cadence
 pub contract Test {
 
   // TODO
@@ -1008,7 +1008,7 @@ My favorite food is Waakye
 **3. Please fix this code (Hint: There are two things wrong):**
 
 The contract interface:
-```
+```Cadence
 pub contract interface ITest {
   pub var number: Int
   
@@ -1031,7 +1031,7 @@ pub contract interface ITest {
 }
 ```
 The implementing contract:
-```
+```Cadence
 pub contract Test: ITest {
   pub var number: Int
   
@@ -1072,7 +1072,7 @@ Prepending auth gives us an "authorized" reference to a resource.
 We use it when we want to downcast a reference to a resource to another reference. To do this, the origin reference that we have must be an authorized reference.
 
 **This last quest will be your most difficult yet. Take this contract:**
-```
+```Cadence
 import NonFungibleToken from 0x02
 pub contract CryptoPoops: NonFungibleToken {
   pub var totalSupply: UInt64
