@@ -679,12 +679,11 @@ Allows us to link a resource in a `/storage/` path to a `/public/` or `/private/
 
 **2. In your own words (no code), explain how we can use resource interfaces to only expose certain things to the /public/ path.**
 
-Ok, so first we have a resource in a `/storage/` path.
-Write a resource interface that our resource implements.
-We write the resource interface so that it exposes only the "certain things" we would like to expose to the `/public` path.
-Use `link` to link the resource in `/storage/` to the `/public/` path, making sure to specify the type as the type of the resource restricted to the resource interface.
-
-Now, the public can only obtain a reference to the resource restricted to the resource interface when using getCapability.
+- Ok, so first we have a resource in a `/storage/` path.
+- Write a resource interface that our resource implements.
+- We write the resource interface so that it exposes only the "certain things" we would like to expose to the `/public` path.
+- Use `link` to link the resource in `/storage/` to the `/public/` path, making sure to specify the type as the type of the resource restricted to the resource interface.
+- Now, the public can only obtain a reference to the resource restricted to the resource interface when using getCapability.
 As a result, the public can only view the "certain things" that I, the owner of the resource, exposed in the resource interface.
 
 **3. Deploy a contract that contains a resource that implements a resource interface. Then, do the following:**
@@ -736,7 +735,7 @@ pub fun main(): Bool {
 
   let testResource: &HelloWorld.Ngaio{HelloWorld.NgaioInterface} = publicCapability.borrow()!
 
-  return testResource.isAustralian
+  return testResource.hatesJava
 }
 ```
   **- Run the script and access something you CAN read from. Return it from the script.**
@@ -749,7 +748,7 @@ pub fun main(): Bool {
 
   let testResource: &HelloWorld.Ngaio{HelloWorld.NgaioInterface} = publicCapability.borrow()!
 
-  return testResource.hatesJava
+  return testResource.isAustralian
 }
 ```
 ### Day 3
