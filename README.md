@@ -1036,7 +1036,7 @@ pub contract Test: ITest {
   pub var number: Int
   
   pub fun updateNumber(newNumber: Int) {
-    self.number = 5
+    self.number = newNumber
   }
 
   pub resource interface IStuff {
