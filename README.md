@@ -406,6 +406,7 @@ To create NFTs! A resource is a unique item on the Blockchain that cannot be cop
 **1. Explain, in your own words, the 2 things resource interfaces can be used for (we went over both in today's content)**
 
 A resource interface can be used as a "requirement" that specifies the functions and fields that an interface must have.
+
 A resource interface can restrict access of a resource's functions and fields from certain people.
 
 **2. Define your own contract. Make your own resource interface and a resource that implements the interface. Create 2 functions. In the 1st function, show an example of not restricting the type of the resource and accessing its content. In the 2nd function, show an example of restricting the type of the resource and NOT being able to access its content.**
@@ -674,7 +675,7 @@ transaction {
 
 **1. What does .link() do?**
 
-Allows us to link a resource in a `/storage/` path to a `/public/` or `/private/` path in order to expose a reference to that resource.
+Allows us to link a resource in a `/storage/` path to a `/public/` or `/private/` path in order to expose a reference to that resource to other users.
 
 **2. In your own words (no code), explain how we can use resource interfaces to only expose certain things to the /public/ path.**
 
