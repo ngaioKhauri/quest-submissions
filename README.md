@@ -762,13 +762,13 @@ If an "outer" resource consists of "nested" resources, the "outer" resource must
 
 **3. Brainstorm some extra things we may want to add to this contract. Think about what might be problematic with this contract and how we could fix it.**
 
-  **- Idea #1: Do we really want everyone to be able to mint an NFT? 🤔.**
+  - **Idea #1: Do we really want everyone to be able to mint an NFT? 🤔.**
 
-    No, we do not want everyone to be able to mint an NFT. We should create a minter resource that contains the createNFT function. Only the person who deploys the contract should have access to this minter resource, allowing only them to mint NFTs.
+    - No, we do not want everyone to be able to mint an NFT. We should create a minter resource that contains the createNFT function. Only the person who deploys the contract should have access to this minter resource, allowing only them to mint NFTs.
 
-  **- Idea #2: If we want to read information about our NFTs inside our Collection, right now we have to take it out of the Collection to do so. Is this good?**
+  - **Idea #2: If we want to read information about our NFTs inside our Collection, right now we have to take it out of the Collection to do so. Is this good?**
 
-    No, this is not great. It would be better to create a function in the Collection resource that takes in an id and returns a (optional) reference to the NFT to which the id maps inside the Collection.
+    - No, this is not great. It would be better to create a function in the Collection resource that takes in an id and returns a (optional) reference to the NFT to which the id maps inside the Collection.
 
 ### Day 4
 
