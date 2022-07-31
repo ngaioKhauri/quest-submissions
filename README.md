@@ -1184,7 +1184,7 @@ transaction {
     }
 
     execute {
-        log("Woohoo! You created a collection"
+        log("Woohoo! You created a collection")
     }
 }
 ```
@@ -1192,7 +1192,7 @@ Transaction to mint and deposit NFT into collection:
 ```Cadence
 import CryptoPoops from 0x01
 
-transaction(receipent: Address, name: String, food: String, number: Int) {
+transaction(receipent: Address, name: String, favouriteFood: String, luckyNumber: Int) {
 
     prepare(signer: AuthAccount) {
         let minter = signer.borrow<&CryptoPoops.Minter>(from: /storage/Minter)
@@ -1201,11 +1201,11 @@ transaction(receipent: Address, name: String, food: String, number: Int) {
                                        .borrow<&CryptoPoops.Collection{CryptoPoops.CollectionPublic}>()
                                        ?? panic("The recipient does not have a Collection.")
 
-        recipientsCollection.deposit(token: <- minter.createNFT(name: name, favouriteFood: food, luckyNumber: number))
+        recipientsCollection.deposit(token: <- minter.createNFT(name: name, favouriteFood: favouriteFood, luckyNumber: luckyNumber))
     }
 
     execute {
-        log("Woohoo! You minted andeposited an NFT")
+        log("Woohoo! You minted and deposited an NFT")
     }
 }
 ```
@@ -1213,12 +1213,12 @@ Borrow NFT and read Metadata:
 ```Cadence
 import CryptoPoops from 0x01
 
-pub fun main(acct: Address, id: UInt64): Int {
+pub fun main(acct: Address, id: UInt64): String {
     let publicCollection  = getAccount(acct).getCapability(/public/MyCollection)
                                 .borrow<&CryptoPoops.Collection{CryptoPoops.CollectionPublic}>()
                                 ?? panic("The account does not have a Collection.")
 
-    return publicCollection.borrowAuthNFT(id: id).luckyNumber
+    return publicCollection.borrowAuthNFT(id: id).name
 }
 ```
 
