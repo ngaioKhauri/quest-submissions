@@ -591,19 +591,19 @@ pub fun main() {
 **1. Explain what lives inside of an account.**
 
 1. Contract Code - the code of the contract that you deploy to your account
-2. Account Storage - your stored data
+2. Account Storage - your stored data (consists of the 3 paths discussed in the next question)
 
 **2. What is the difference between the /storage/, /public/, and /private/ paths?**
 
-/storage/ - only the account owner can access it. all your data is here
-/public/ - everyone can access it
-/private/ - only the account owner and people who the owner gives access to it can access it
+- /storage/ - only the account owner can access it. all your data is here
+- /public/ - everyone can access it
+- /private/ - only the account owner and people who the owner gives access to it can access it
 
 **3. What does .save() do? What does .load() do? What does .borrow() do?**
 
-`.save()` saves data to a `/storage/` path
-`.load()` loads data from a `/storage/` path
-`.borrow()` returns a reference to data in a `/storage/` path
+- `.save()` saves data to a `/storage/` path
+- `.load()` loads data from a `/storage/` path
+- `.borrow()` returns a reference to data in a `/storage/` path
 
 **4. Explain why we couldn't save something to our account storage inside of a script.**
 
