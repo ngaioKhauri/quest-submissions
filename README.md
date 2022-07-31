@@ -1069,11 +1069,18 @@ This is useful in our Collection because although the deposit function must take
 
 Prepending auth gives us an "authorized" reference to a resource.
 
-We use it when we want to downcast a reference to a resource to another reference. To do this, the origin reference that we have must be an authorized reference.
+We use it when we want to downcast a reference to a resource to another reference. To do this, the original reference that we have must be an authorized reference.
 
 **This last quest will be your most difficult yet. Take this contract:**
+
+**and add a function called borrowAuthNFT just like we did in the section called "The Problem" above. Then, find a way to make it publically accessible to other people so they can read our NFT's metadata. Then, run a script to display the NFTs metadata for a certain id.**
+
+**You will have to write all the transactions to set up the accounts, mint the NFTs, and then the scripts to read the NFT's metadata. We have done most of this in the chapters up to this point, so you can look for help there :)**
+
+Modified contract:
 ```Cadence
 import NonFungibleToken from 0x02
+
 pub contract CryptoPoops: NonFungibleToken {
   pub var totalSupply: UInt64
 
@@ -1097,7 +1104,14 @@ pub contract CryptoPoops: NonFungibleToken {
     }
   }
 
-  pub resource Collection: NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic {
+  pub resource interface CollectionPublic {
+    pub fun deposit(token: @NonFungibleToken.NFT)
+    pub fun getIDs(): [UInt64]
+    pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT
+    pub fun borrowAuthNFT(id: UInt64): &NFT
+  }
+
+  pub resource Collection: NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic, CollectionPublic {
     pub var ownedNFTs: @{UInt64: NonFungibleToken.NFT}
 
     pub fun withdraw(withdrawID: UInt64): @NonFungibleToken.NFT {
@@ -1119,6 +1133,11 @@ pub contract CryptoPoops: NonFungibleToken {
 
     pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT {
       return (&self.ownedNFTs[id] as &NonFungibleToken.NFT?)!
+    }
+
+    pub fun borrowAuthNFT(id: UInt64): &NFT {
+      let ref = (&self.ownedNFTs[id] as auth &NonFungibleToken.NFT?)!
+      return ref as! &NFT
     }
 
     init() {
@@ -1153,8 +1172,55 @@ pub contract CryptoPoops: NonFungibleToken {
   }
 }
 ```
-**and add a function called borrowAuthNFT just like we did in the section called "The Problem" above. Then, find a way to make it publically accessible to other people so they can read our NFT's metadata. Then, run a script to display the NFTs metadata for a certain id.**
+Transaction to create collection:
+```Cadence
+import CryptoPoops from 0x01
 
-**You will have to write all the transactions to set up the accounts, mint the NFTs, and then the scripts to read the NFT's metadata. We have done most of this in the chapters up to this point, so you can look for help there :)**
+transaction {
+
+  prepare(signer: AuthAccount) {
+    signer.save(<-CryptoPoops.createEmptyCollection(), to: /storage/MyCollection)
+    signer.link<&CryptoPoops.Collection{CryptoPoops.CollectionPublic}>(/public/MyCollection, target: /storage/MyCollection)
+  }
+
+  execute {
+    log("Woohoo! You created a collection"
+  }
+}
+```
+Transaction to mint and deposit NFT into collection:
+```Cadence
+import CryptoPoops from 0x01
+
+transaction(receipent: Address, name: String, food: String, number: Int) {
+
+    prepare(signer: AuthAccount) {
+        let minter = signer.borrow<&CryptoPoops.Minter>(from: /storage/Minter)
+                         ?? panic("This signer is not the one who deployed the contract")
+        let recipientsCollection = getAccount(receipent).getCapability(/public/MyCollection)
+                                       .borrow<&CryptoPoops.Collection{CryptoPoops.CollectionPublic}>()
+                                       ?? panic("The recipient does not have a Collection.")
+
+        recipientsCollection.deposit(token: <- minter.createNFT(name: name, favouriteFood: food, luckyNumber: number))
+    }
+
+    execute {
+        log("Woohoo! You minted andeposited an NFT")
+    }
+}
+```
+Borrow NFT and read Metadata:
+```Cadence
+import CryptoPoops from 0x01
+
+pub fun main(acct: Address, id: UInt64): Int {
+  let publicCollection  = getAccount(acct).getCapability(/public/MyCollection)
+                            .borrow<&CryptoPoops.Collection{CryptoPoops.CollectionPublic}>()
+                            ?? panic("The account does not have a Collection.")
+
+  return publicCollection.borrowAuthNFT(id: id).luckyNumber
+}
+```
+
 
 
