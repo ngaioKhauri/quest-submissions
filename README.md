@@ -1178,14 +1178,14 @@ import CryptoPoops from 0x01
 
 transaction {
 
-  prepare(signer: AuthAccount) {
-    signer.save(<-CryptoPoops.createEmptyCollection(), to: /storage/MyCollection)
-    signer.link<&CryptoPoops.Collection{CryptoPoops.CollectionPublic}>(/public/MyCollection, target: /storage/MyCollection)
-  }
+    prepare(signer: AuthAccount) {
+        signer.save(<-CryptoPoops.createEmptyCollection(), to: /storage/MyCollection)
+        signer.link<&CryptoPoops.Collection{CryptoPoops.CollectionPublic}>(/public/MyCollection, target: /storage/MyCollection)
+    }
 
-  execute {
-    log("Woohoo! You created a collection"
-  }
+    execute {
+        log("Woohoo! You created a collection"
+    }
 }
 ```
 Transaction to mint and deposit NFT into collection:
@@ -1214,11 +1214,11 @@ Borrow NFT and read Metadata:
 import CryptoPoops from 0x01
 
 pub fun main(acct: Address, id: UInt64): Int {
-  let publicCollection  = getAccount(acct).getCapability(/public/MyCollection)
-                            .borrow<&CryptoPoops.Collection{CryptoPoops.CollectionPublic}>()
-                            ?? panic("The account does not have a Collection.")
+    let publicCollection  = getAccount(acct).getCapability(/public/MyCollection)
+                                .borrow<&CryptoPoops.Collection{CryptoPoops.CollectionPublic}>()
+                                ?? panic("The account does not have a Collection.")
 
-  return publicCollection.borrowAuthNFT(id: id).luckyNumber
+    return publicCollection.borrowAuthNFT(id: id).luckyNumber
 }
 ```
 
