@@ -273,7 +273,9 @@ Resources cannot be copied. They cannot be lost (or overwritten). They cannot be
 
 **2. Describe a situation where a resource might be better to use than a struct.**
 
-If you want to buy an expensive virtual item over Flow, you would want to use a resource because a resource cannot be copied. Using a resource for the expensive virtual item ensures that only one instance of it will exist at a time. This way, after I buy the item, I know that the seller can't just re-sell it to other folks.
+A resource might be better to use than a struct when you want something that is unique and not possible to copy.
+
+E.g. if you want to buy an expensive virtual item over Flow, you would want to use a resource instead of a struct because a resource cannot be copied. Using a resource for the expensive virtual item ensures that only one instance of it will exist at a time. This way, after I buy the item, I know that the seller can't just re-sell it to other folks.
 
 **3. What is the keyword to make a new resource?**
 
