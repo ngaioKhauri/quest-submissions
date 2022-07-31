@@ -683,7 +683,7 @@ Allows us to link a resource in a `/storage/` path to a `/public/` or `/private/
 - Write a resource interface that our resource implements.
 - We write the resource interface so that it exposes only the "certain things" we would like to expose to the `/public` path.
 - Use `link` to link the resource in `/storage/` to the `/public/` path, making sure to specify the type as the type of the resource restricted to the resource interface.
-- Now, the public can only obtain a reference to the resource restricted to the resource interface when using getCapability.
+- Now, the public can only obtain a reference to the resource restricted to the resource interface when using `getCapability`.
 As a result, the public can only view the "certain things" that I, the owner of the resource, exposed in the resource interface.
 
 **3. Deploy a contract that contains a resource that implements a resource interface. Then, do the following:**
