@@ -943,7 +943,9 @@ pub contract Test {
 **4. For each of the functions below (numberOne, numberTwo, numberThree), follow the instructions.**
 
 `numberOne` logs the name.
+
 `numberTwo` returns a value.
+
 `numberThree` does not return the updated number. The value of `self.number` after it's run is 0.
 
 ```Cadence
